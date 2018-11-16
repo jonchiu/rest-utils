@@ -100,6 +100,7 @@ public abstract class Application<T extends RestConfig> {
   protected Metrics metrics;
   protected final Slf4jRequestLog requestLog;
   protected final List<ResourceExtension> resourceExtensions = new ArrayList<>();
+  protected SslContextFactory sslContextFactory;
 
   private static final Logger log = LoggerFactory.getLogger(Application.class);
 
@@ -145,6 +146,11 @@ public abstract class Application<T extends RestConfig> {
   protected ResourceCollection getStaticResources() {
     return null;
   }
+
+  /**
+   * expose SslContextFactory
+   */
+  protected SslContextFactory getSslContextFactory() { return this.sslContextFactory; }
 
   /**
    * add any servlet filters that should be called before resource handling
@@ -281,7 +287,7 @@ public abstract class Application<T extends RestConfig> {
         }
 
         sslContextFactory.setRenegotiationAllowed(false);
-
+        this.sslContextFactory = sslContextFactory;
         connector = new NetworkTrafficServerConnector(server, sslContextFactory);
       }
 
