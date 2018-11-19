@@ -150,7 +150,9 @@ public abstract class Application<T extends RestConfig> {
   /**
    * expose SslContextFactory
    */
-  protected SslContextFactory getSslContextFactory() { return this.sslContextFactory; }
+  protected SslContextFactory getSslContextFactory() {
+    return this.sslContextFactory;
+  }
 
   /**
    * add any servlet filters that should be called before resource handling
